@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Dad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --black:#000;--ink:#0c0b09;--white:#fff;--paper:#f7f4ee;
+  --gold:#c9a227;--gold-hi:#f0d77a;--gold-lo:#8a6d12;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+.gold{background:linear-gradient(100deg,var(--gold-lo),var(--gold-hi) 35%,var(--gold) 55%,var(--gold-hi) 80%,var(--gold-lo));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.05}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+
+/* HERO */
+.hero{min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:4rem 1.5rem;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 60% 45% at 50% 42%,rgba(201,162,39,.22),transparent 70%),var(--black)}
+.frame{position:absolute;inset:clamp(.8rem,3vw,2rem);border:1px solid var(--gold);pointer-events:none;opacity:.7}
+.frame::after{content:"";position:absolute;inset:6px;border:1px solid rgba(201,162,39,.35)}
+.hero-inner{max-width:60rem}
+.hero small{display:block;font-size:.95rem;letter-spacing:.35em;text-transform:none;color:var(--gold-hi);margin-bottom:1.5rem;opacity:0;animation:rise 1.2s .2s forwards}
+.hero h1{font-size:clamp(3.4rem,13vw,10rem);font-style:italic;font-weight:600;opacity:0;animation:rise 1.4s .5s forwards}
+.hero h1 span{display:block;font-style:normal;font-weight:400;font-size:.42em;letter-spacing:.12em;color:var(--white);margin-bottom:.2em}
+.hero p{max-width:34rem;margin:2rem auto 2.5rem;color:#d8d3c4;font-size:1.1rem;opacity:0;animation:rise 1.2s 1.1s forwards}
+.btn{font:500 1rem var(--sans);letter-spacing:.08em;color:var(--black);background:linear-gradient(100deg,var(--gold-lo),var(--gold-hi),var(--gold));border:0;padding:1rem 2.4rem;cursor:pointer;opacity:0;animation:rise 1.2s 1.5s forwards;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,162,39,.35)}
+.btn.ghost{background:none;color:var(--gold-hi);border:1px solid var(--gold);opacity:1;animation:none;padding:.7rem 1.6rem}
+.btn.ghost:hover{background:rgba(201,162,39,.12)}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+
+/* LETTER */
+.letter{background:var(--paper);color:#161410;padding:clamp(4rem,10vw,8rem) 1.5rem}
+.letter .wrap{max-width:44rem;margin:0 auto}
+.letter h2{font-size:clamp(2.4rem,6vw,4rem);margin-bottom:.4em;font-style:italic}
+.letter h2::after{content:"";display:block;width:5rem;height:2px;background:var(--gold);margin-top:1rem}
+.letter p{font-family:var(--serif);font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.65;margin:0 0 1.2em;font-weight:400}
+.sign{font-style:italic;color:var(--gold-lo);font-size:1.5rem}
+[contenteditable]{outline:none;border-radius:2px}
+[contenteditable]:hover{box-shadow:0 0 0 1px rgba(201,162,39,.5)}
+[contenteditable]:focus{box-shadow:0 0 0 2px var(--gold)}
+
+/* VIDEOS */
+.reasons{padding:clamp(4rem,10vw,8rem) 1.5rem;background:var(--black)}
+.reasons .wrap{max-width:62rem;margin:0 auto}
+.reasons h2{font-size:clamp(2.2rem,5.5vw,3.8rem);text-align:center}
+.reasons header{text-align:center;margin-bottom:3rem}
+.reasons header h2{margin-bottom:0}
+.reasons header p{color:#d8d3c4;max-width:34rem;margin:1rem auto 1.6rem}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,20rem),1fr));gap:1.6rem}
+.vcard{border:1px solid var(--gold);background:#0a0a0a;padding:.6rem;position:relative}
+.vcard video{display:block;width:100%;aspect-ratio:16/9;background:#000;object-fit:contain}
+.vcard .cap{font-family:var(--serif);font-size:1.3rem;font-style:italic;color:var(--gold-hi);text-align:center;padding:.8rem .4rem .3rem;min-height:2.4rem}
+.vcard:hover .del{opacity:1}
+.vlink{display:block;text-decoration:none;color:inherit}
+.vlink .play{aspect-ratio:16/9;display:grid;place-items:center;background:radial-gradient(circle,rgba(201,162,39,.28),#000 72%)}
+.vlink .play span{width:4.5rem;height:4.5rem;border-radius:50%;border:2px solid var(--gold-hi);color:var(--gold-hi);display:grid;place-items:center;font-size:1.6rem;padding-left:.25rem;transition:background .2s,color .2s}
+.vlink:hover .play span{background:var(--gold-hi);color:#000}
+
+/* GALLERY */
+.memories{padding:clamp(4rem,10vw,8rem) 1.5rem;background:var(--ink);border-top:1px solid var(--gold-lo)}
+.memories .wrap{max-width:74rem;margin:0 auto}
+.memories header{text-align:center;margin-bottom:3rem}
+.memories h2{font-size:clamp(2.4rem,6vw,4.4rem)}
+.memories header p{color:#d8d3c4;max-width:32rem;margin:1rem auto 1.6rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,16rem),1fr));gap:1.6rem}
+figure{margin:0;background:var(--white);padding:.7rem .7rem 1rem;color:#161410;position:relative;box-shadow:0 14px 40px rgba(0,0,0,.6);transition:transform .25s}
+figure:nth-child(odd){transform:rotate(-1.2deg)}figure:nth-child(even){transform:rotate(1deg)}
+figure:hover{transform:rotate(0) scale(1.02);z-index:2}
+figure img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#ddd}
+figcaption{font-family:var(--serif);font-size:1.25rem;font-style:italic;text-align:center;padding-top:.7rem;min-height:2.2rem}
+.del{position:absolute;top:1rem;right:1rem;width:2rem;height:2rem;border-radius:50%;border:0;background:rgba(0,0,0,.75);color:var(--gold-hi);font-size:1.1rem;cursor:pointer;opacity:0;transition:opacity .2s}
+figure:hover .del,.del:focus-visible{opacity:1}
+@media (hover:none){.del{opacity:1}}
+.slot{border:1px dashed var(--gold);aspect-ratio:4/5.4;display:grid;place-items:center;text-align:center;color:var(--gold-hi);cursor:pointer;background:rgba(201,162,39,.04);font-family:var(--serif);font-size:1.3rem;font-style:italic;padding:1rem;transition:background .2s}
+.slot:hover{background:rgba(201,162,39,.12)}
+.slot b{display:block;font:300 2.6rem var(--sans);line-height:1}
+.slot.vslot{aspect-ratio:16/9}
+
+footer{text-align:center;padding:4rem 1.5rem 5rem;background:var(--black);border-top:1px solid var(--gold-lo)}
+footer p{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.4rem);font-style:italic;margin:0}
+footer small{display:block;margin-top:.8rem;color:#9a9484}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-delay:0s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="frame"></div>
+  <div class="hero-inner">
+    <small>For the Man who means everything to us </small>
+    <h1 class="gold"><span>Happy Birthday</span><b contenteditable="true" spellcheck="false" id="name" style="font-weight:inherit">Dad</b></h1>
+    <p>Everything good in me, I learned from watching you. This page is yours.</p>
+    <button class="btn" id="celebrate">Celebrate</button>
+  </div>
+</section>
+
+<section class="letter">
+  <div class="wrap">
+    <h2>A letter for you</h2>
+    <div contenteditable="true" id="letter" spellcheck="true">
+      <p>Happy Birthday to the most amazing dad! ❤️🎉🥳 Today, We celebrate not just the day you were born, but also the incredible person you are and the role you play in our life.</p>
+      <p>Thank you for your sacrifices, your guidance, your strength, and all the things you do, even the ones that sometimes go unnoticed. We pray that God blesses you with good health, peace of mind, happiness, long life, and countless reasons to smile. May this new chapter of your life bring you everything your heart desires and reward you for all the hard work you have put in over the years.</p>
+      <p>May God continue to protect you, guide your steps, and bless the work of your hands. We are grateful to have you as my dad, and I hope today reminds you of how special and loved you are. Happy birthday, Dad! ❤️🎂 May you continue to age gracefully, live abundantly, and enjoy many more beautiful years ahead. I love you! ❤️🎉</p>
+      <p class="sign">With all our love,<br>Your family</p>
+    </div>
+  </div>
+</section>
+
+<section class="reasons">
+  <div class="wrap">
+    <header>
+      <h2 class="gold">Why we are proud of you</h2>
+      <p>Just a Short Message from all of us</p>
+      <button class="btn ghost" id="vadd">Add videos</button>
+      <input type="file" id="vfile" accept="video/*" multiple hidden>
+    </header>
+    <div class="vgrid" id="vgrid"></div>
+  </div>
+</section>
+
+<section class="memories" id="memories">
+  <div class="wrap">
+    <header>
+      <h2 class="gold"> Memories</h2>
+      <p>Moments we have shared, and many more still to come.</p>
+      <button class="btn ghost" id="add">Add photos</button>
+      <input type="file" id="file" accept="image/*" multiple hidden>
+    </header>
+    
+      <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<footer>
+  <p class="gold">Here’s to you, today and always.</p>
+  <small>Made with love</small>
+</footer>
+
+<canvas id="fx"></canvas>
+
+<script>
+(function(){
+  // ---------- Saved edits (name, letter) ----------
+  var ids=["name","letter"];
+  function save(){try{ids.forEach(function(i){localStorage.setItem("dad_"+i,document.getElementById(i).innerHTML)})}catch(e){}}
+  try{ids.forEach(function(i){var v=localStorage.getItem("dad_"+i);if(v)document.getElementById(i).innerHTML=v})}catch(e){}
+  document.addEventListener("input",save);
+
+  // ---------- Confetti ----------
+  var cv=document.getElementById("fx"),cx=cv.getContext("2d"),bits=[],run=false;
+  function size(){cv.width=innerWidth;cv.height=innerHeight}size();addEventListener("resize",size);
+  var cols=["#c9a227","#f0d77a","#ffffff","#8a6d12"];
+  function burst(){
+    for(var i=0;i<160;i++)bits.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,w:5+Math.random()*7,h:8+Math.random()*10,vy:2+Math.random()*3,vx:-1+Math.random()*2,r:Math.random()*6,vr:-.2+Math.random()*.4,c:cols[i%4]});
+    if(!run){run=true;tick()}
+  }
+  function tick(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    bits=bits.filter(function(b){return b.y<cv.height+30});
+    bits.forEach(function(b){b.y+=b.vy;b.x+=b.vx+Math.sin(b.y/40);b.r+=b.vr;cx.save();cx.translate(b.x,b.y);cx.rotate(b.r);cx.fillStyle=b.c;cx.fillRect(-b.w/2,-b.h/2,b.w,b.h);cx.restore()});
+    if(bits.length)requestAnimationFrame(tick);else run=false;
+  }
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("celebrate").addEventListener("click",function(){
+    if(!reduce)burst();
+    setTimeout(function(){document.querySelector(".letter").scrollIntoView({behavior:reduce?"auto":"smooth"})},reduce?0:900);
+  });
+
+  // ---------- Photo gallery (stored privately in this browser) ----------
+  var grid=document.getElementById("grid"),file=document.getElementById("file"),db=null,mem=[];
+  function openDB(cb){
+    try{var r=indexedDB.open("dad_photos",1);
+      r.onupgradeneeded=function(){r.result.createObjectStore("p",{keyPath:"id"})};
+      r.onsuccess=function(){db=r.result;cb()};r.onerror=function(){cb()};
+    }catch(e){cb()}
+  }
+  function store(op,item,cb){
+    if(!db){cb&&cb();return}
+    try{var t=db.transaction("p","readwrite"),s=t.objectStore("p");
+      if(op==="put")s.put(item);if(op==="del")s.delete(item);t.oncomplete=function(){cb&&cb()}}catch(e){cb&&cb()}
+  }
+  function loadAll(cb){
+    if(!db){cb(mem);return}
+    try{var q=db.transaction("p").objectStore("p").getAll();q.onsuccess=function(){cb(q.result.sort(function(a,b){return a.id-b.id}))};q.onerror=function(){cb([])}}catch(e){cb([])}
+  }
+  
+function render(list) {
+  grid.innerHTML = "";
+
+  // Photos stored in your birthday project's Images folder.
+  // Change these paths to match your actual filenames.
+  var staticPhotos = [
+    {
+      src: "Images/image1.jpg.jpg",
+      cap: "Christmas ",
+      alt: "A special memory with Dad"
+    },
+    {
+       src: "Images/image 2.jpg.jpg",
+      cap: "Nyama Choma",
+      alt: "A family memory"
+    },
+    {
+       src: "Images/image3.jpg.jpg",
+      cap: "With Friends in Kiganjo",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img4.jpg.jpg",
+      cap: "A photo with Lyra",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img5.jpg.jpeg",
+      cap: "Second car",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img6.jpg.jpeg",
+      cap: "Serious Guy",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img7.jpg.jpeg",
+      cap: "First Car",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img8.jpg.jpeg",
+      cap: "Enjoying life in Karen",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img9.jpg.jpeg",
+      cap: "Hustling (Chasing the Bag)",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img10.jpg.jpeg",
+      cap: "Your Birthday Many years Ago",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img11.jpg.jpeg",
+      cap: "Lydia's Achievement",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img12.jpg.jpeg",
+      cap: "With Bae",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img13.jpg.jpeg",
+      cap: "A family Photo after westpark church service",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img14.jpg.jpeg",
+      cap: "A talk with Lyndon",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img15.jpg.jpeg",
+      cap: "Just a Man with his beautiful Children",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img16.jpg.jpeg",
+      cap: "Just smiley Faces",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img17.jpg.jpeg",
+      cap: "Supportive Uncle",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img18.jpg.jpeg",
+      cap: "Lynn's Visiting Day",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img19.jpg.jpeg",
+      cap: "Matching Outfit with Lyndon",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img20.jpg.jpeg",
+      cap: "Baby Lynden",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img21.jpg.jpeg",
+      cap: "Wife and FirstBorn",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img22.jpg.jpeg",
+      cap: "Enjoying the view",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img23.jpg.jpeg",
+      cap: "SGR",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/img24.jpg.jpeg",
+      cap: "A photo with the boys and wife after Citam church service",
+      alt: "A birthday memory"
+    },
+    {
+       src: "Images/image 25.jpeg",
+      cap: "Congratulating your Wife",
+      alt: "A birthday memory"
+    },
+  ];
+
+  // Display the project photos inside the existing frames.
+  staticPhotos.forEach(function(p) {
+    var f = document.createElement("figure");
+
+    var im = document.createElement("img");
+    im.src = p.src;
+    im.alt = p.alt;
+    im.loading = "lazy";
+
+    // Show a helpful message if a filename or path is incorrect.
+    im.onerror = function() {
+      console.error("Could not load image:", p.src);
+    };
+
+    var c = document.createElement("figcaption");
+    c.textContent = p.cap;
+
+    f.appendChild(im);
+    f.appendChild(c);
+    grid.appendChild(f);
+  });
+
+  // Display additional photos selected using Add photos.
+  list.forEach(function(p) {
+    var f = document.createElement("figure");
+
+    var im = document.createElement("img");
+    im.src = p.data;
+    im.alt = p.cap || "A memory together";
+    im.loading = "lazy";
+
+    var c = document.createElement("figcaption");
+    c.contentEditable = "true";
+    c.textContent = p.cap || "Add a caption";
+
+    c.addEventListener("focus", function() {
+      if (c.textContent === "Add a caption") {
+        c.textContent = "";
+      }
+    });
+
+    c.addEventListener("blur", function() {
+      p.cap = c.textContent.trim();
+
+      if (!p.cap) {
+        c.textContent = "Add a caption";
+      }
+
+      store("put", p);
+    });
+
+    var d = document.createElement("button");
+    d.className = "del";
+    d.textContent = "×";
+    d.setAttribute("aria-label", "Remove photo");
+
+    d.addEventListener("click", function() {
+      if (confirm("Remove this photo?")) {
+        mem = mem.filter(function(m) {
+          return m.id !== p.id;
+        });
+
+        store("del", p.id, refresh);
+      }
+    });
+
+    f.appendChild(im);
+    f.appendChild(c);
+    f.appendChild(d);
+    grid.appendChild(f);
+  });
+
+  // Keep the empty frames for adding more memories.
+  var remaining = Math.max(0, 6 - staticPhotos.length - list.length);
+
+  for (var i = 0; i < remaining; i++) {
+    var s = document.createElement("div");
+    s.className = "slot";
+    s.tabIndex = 0;
+    s.setAttribute("role", "button");
+    s.setAttribute("aria-label", "Add a memory photo");
+    s.innerHTML = "<div><b>+</b>Place a memory here</div>";
+
+    s.addEventListener("click", function() {
+      file.click();
+    });
+
+    s.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        file.click();
+      }
+    });
+
+    grid.appendChild(s);
+  }
+}
+
+  function refresh(){loadAll(render)}
+  function shrink(f,cb){
+    var r=new FileReader();
+    r.onload=function(){var im=new Image();im.onload=function(){
+      var m=1100,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");
+      c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+      cb(c.toDataURL("image/jpeg",.82))};im.onerror=function(){cb(null)};im.src=r.result};
+    r.readAsDataURL(f);
+  }
+  file.addEventListener("change",function(){
+    var fs=Array.prototype.slice.call(file.files),left=fs.length;
+    if(!left)return;
+    fs.forEach(function(f,i){shrink(f,function(d){
+      if(d){var item={id:Date.now()+i,data:d,cap:""};mem.push(item);store("put",item)}
+      if(--left===0){file.value="";refresh()}
+    })});
+  });
+  document.getElementById("add").addEventListener("click",function(){file.click()});
+  openDB(refresh);
+
+  // ---------- YouTube video messages: add your links here ----------
+  // Copy a line, paste the unlisted YouTube link, and write who it is from.
+  
+var staticVideos = [
+  {
+    name: "A message from us",
+    src: "Videos/Dad.mp4"
+  }
+  
+];
+
+
+  // ---------- Video messages (stored privately in this browser) ----------
+  var vg=document.getElementById("vgrid"),vf=document.getElementById("vfile"),vdb=null,vmem=[],vurls=[];
+  function vOpen(cb){
+    try{var r=indexedDB.open("dad_videos",1);
+      r.onupgradeneeded=function(){r.result.createObjectStore("v",{keyPath:"id"})};
+      r.onsuccess=function(){vdb=r.result;cb()};r.onerror=function(){cb()};
+    }catch(e){cb()}
+  }
+  function vStore(op,item,cb){
+    if(!vdb){cb&&cb();return}
+    try{var t=vdb.transaction("v","readwrite"),s=t.objectStore("v");
+      if(op==="put")s.put(item);if(op==="del")s.delete(item);
+      t.oncomplete=function(){cb&&cb()};t.onerror=function(){cb&&cb()}}catch(e){cb&&cb()}
+  }
+  function vAll(cb){
+    if(!vdb){cb(vmem);return}
+    try{var q=vdb.transaction("v").objectStore("v").getAll();q.onsuccess=function(){cb(q.result.sort(function(a,b){return a.id-b.id}))};q.onerror=function(){cb(vmem)}}catch(e){cb(vmem)}
+  }
+  
+
+function vRender(list) {
+  // Clear old video URLs to prevent memory leaks.
+  vurls.forEach(function(u) {
+    URL.revokeObjectURL(u);
+  });
+  vurls = [];
+  vg.innerHTML = "";
+
+  // Display videos saved in your project's Videos folder.
+  staticVideos.slice(0, 1).forEach(function(x) {
+    var c = document.createElement("div");
+    c.className = "vcard";
+
+    var v = document.createElement("video");
+    v.controls = true;
+    v.preload = "metadata";
+    v.playsInline = true;
+    v.src = x.src;
+
+    v.onerror = function() {
+      console.error("Could not load video:", x.src);
+    };
+
+    var cap = document.createElement("div");
+    cap.className = "cap";
+    cap.textContent = x.name;
+
+    c.appendChild(v);
+    c.appendChild(cap);
+    vg.appendChild(c);
+  });
+
+  // Display manually uploaded videos, if any.
+  list.forEach(function(p) {
+    var c = document.createElement("div");
+    c.className = "vcard";
+
+    var v = document.createElement("video");
+    v.controls = true;
+    v.preload = "metadata";
+    v.playsInline = true;
+
+    var u = URL.createObjectURL(p.blob);
+    vurls.push(u);
+    v.src = u;
+
+    var cap = document.createElement("div");
+    cap.className = "cap";
+    cap.contentEditable = "true";
+    cap.textContent = p.cap || "Who is this from?";
+
+    cap.addEventListener("focus", function() {
+      if (cap.textContent === "Who is this from?") {
+        cap.textContent = "";
+      }
+    });
+
+    cap.addEventListener("blur", function() {
+      p.cap = cap.textContent.trim();
+
+      if (!p.cap) {
+        cap.textContent = "Who is this from?";
+      }
+
+      vStore("put", p);
+    });
+
+    var d = document.createElement("button");
+    d.className = "del";
+    d.textContent = "×";
+    d.setAttribute("aria-label", "Remove video");
+
+    d.addEventListener("click", function() {
+      if (confirm("Remove this video?")) {
+        vmem = vmem.filter(function(m) {
+          return m.id !== p.id;
+        });
+
+        vStore("del", p.id, vRefresh);
+      }
+    });
+
+    c.appendChild(v);
+    c.appendChild(cap);
+    c.appendChild(d);
+    vg.appendChild(c);
+  });
+
+  // Show just ONE placeholder when no video exists.
+  if (staticVideos.length === 0 && list.length === 0) {
+    var s = document.createElement("div");
+    s.className = "slot vslot";
+    s.tabIndex = 0;
+    s.setAttribute("role", "button");
+    s.setAttribute("aria-label", "Add a video message");
+    s.innerHTML =
+      "<div><b>+</b>Add a video message</div>";
+
+    s.addEventListener("click", function() {
+      vf.click();
+    });
+
+    s.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        vf.click();
+      }
+    });
+
+    vg.appendChild(s);
+  }
+}
+
+
+  
+  function vRefresh(){vAll(vRender)}
+  vf.addEventListener("change",function(){
+    var fs=Array.prototype.slice.call(vf.files),left=fs.length;
+    if(!left)return;
+    fs.forEach(function(f,i){
+      var item={id:Date.now()+i,blob:f,cap:""};vmem.push(item);
+      vStore("put",item,function(){if(--left===0){vf.value="";vRefresh()}});
+    });
+  });
+  document.getElementById("vadd").addEventListener("click",function(){vf.click()});
+  vOpen(vRefresh);
+})();
+</script>
+</body>
+</html>
